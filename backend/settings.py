@@ -45,7 +45,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    'corsheaders.middleware.CorsMiddleware' #Added ##Adding CORS headers allows your resources to be accessed on other domains.
+    'corsheaders.middleware.CorsMiddleware', #Added ##Adding CORS headers allows your resources to be accessed on other domains.
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
