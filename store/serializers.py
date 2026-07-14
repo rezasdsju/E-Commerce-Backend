@@ -2,6 +2,24 @@ from rest_framework import serializers
 from . models import Product, Category
 
 
+
+
+
+
+####Serializer for Function-Based View (FBV) API that returns JSON response. 
+####Included for Practice/Test purpose only
+class CategorySerializerApi(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    slug = serializers.SlugField()    
+
+
+
+
+
+
+
+
+
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -16,12 +34,6 @@ class ProductSerializer(serializers.ModelSerializer):
         
         
 
-
-
-#Serializer for Function-Based View (FBV) API that returns JSON response. Included for Practice/Test purpose only
-class CategorySerializerApi(serializers.Serializer):
-    name = serializers.CharField(max_length=100)
-    slug = serializers.SlugField()    
 
 
   

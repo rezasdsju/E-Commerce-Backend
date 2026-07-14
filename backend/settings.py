@@ -130,3 +130,7 @@ STATIC_URL = 'static/'
 CORS_ALLOW_ALL_ORIGINS = [  #A list of origins that are authorized to make cross-site HTTP requests.
     "http://localhost:3000",   #Local host for React frontend
 ]
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -5,6 +5,7 @@ urlpatterns = [
     path('products/', views.get_products),
     path('categories/', views.get_categories),
     
-    #URL for Function-Based View (FBV) API that returns JSON response. Included for Practice/Test purpose only 
-    path('get_categories_api/', views.get_categories_api), 
+    ####URL for Function-Based View (FBV) API that returns JSON response. 
+    ####Included for Practice/Test purpose only 
+    path('get_categories_json_api/', views.get_categories_json_api), 
 ]

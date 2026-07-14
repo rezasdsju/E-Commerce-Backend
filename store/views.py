@@ -1,9 +1,6 @@
 '''from django.shortcuts import render
 from django.http import JsonResponse
 # Create your views here.
-
-
-
 def home(request):
     data = {
         'messege': 'Welcome to E-Commerce Store'
@@ -34,20 +31,17 @@ def get_categories(request):
 
 
 
-#Function-Based View (FBV) API that returns JSON response.  Included for Practice/Test purpose only
+####Function-Based View (FBV) API that returns JSON response.  
+####Included for Practice/Test purpose only
 from django.http import HttpResponse
 from .serializers import CategorySerializerApi
 from rest_framework.renderers import JSONRenderer
-def get_categories_api(request):
+def get_categories_json_api(request):
     #Complex data
     category = Category.objects.all()
-    
     #Python Dictionary
     serializer = CategorySerializerApi(category, many=True)
-    
     #Render to Json
     json_data = JSONRenderer().render(serializer.data)
-    
-    
     #Sent Json data to user
     return HttpResponse(json_data, content_type='application/json')
