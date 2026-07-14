@@ -15,13 +15,14 @@ class ProductSerializer(serializers.ModelSerializer):
         fields = '__all__'        
         
         
-        
-'''       
-class CategorySerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=100, unique=True)
-    slug = serializers.SlugField(unique=True)    
 
 
-'''
+
+#Serializer for Function-Based View (FBV) API that returns JSON response. Included for Practice/Test purpose only
+class CategorySerializerApi(serializers.Serializer):
+    name = serializers.CharField(max_length=100)
+    slug = serializers.SlugField()    
+
+
   
   

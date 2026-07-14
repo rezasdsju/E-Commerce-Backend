@@ -31,3 +31,23 @@ def get_categories(request):
     categories = Category.objects.all()
     serializer = CategorySerializer(categories, many = True)
     return Response(serializer.data)
+
+
+
+#Function-Based View (FBV) API that returns JSON response.  Included for Practice/Test purpose only
+from django.http import HttpResponse
+from .serializers import CategorySerializerApi
+from rest_framework.renderers import JSONRenderer
+def get_categories_api(request):
+    #Complex data
+    category = Category.objects.all()
+    
+    #Python Dictionary
+    serializer = CategorySerializerApi(category, many=True)
+    
+    #Render to Json
+    json_data = JSONRenderer().render(serializer.data)
+    
+    
+    #Sent Json data to user
+    return HttpResponse(json_data, content_type='application/json')
