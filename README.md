@@ -1,5 +1,5 @@
 # E-Commerce Backend
-This project has been build for serving E-Commerce API that is made by Django REST Framework. 
+This project will serve REST API to the frontend of E-Commerce web Application 
 
 
 
