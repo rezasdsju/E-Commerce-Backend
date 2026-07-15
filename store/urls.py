@@ -10,4 +10,9 @@ urlpatterns = [
     ####URL for Function-Based View (FBV) API that returns JSON response. 
     ####Included for Practice/Test purpose only 
     path('get_categories_json_api/', views.get_categories_json_api), 
+    
+    path('cart/', views.get_cart),
+    path('cart/add/', views.add_to_cart),
+    path('cart/remove/', views.remove_from_cart),
+    
 ]

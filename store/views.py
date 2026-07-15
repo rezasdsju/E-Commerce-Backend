@@ -10,8 +10,8 @@ def home(request):
     
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from . models import Product, Category
-from .serializers import CategorySerializer, ProductSerializer
+from . models import Product, Category, Cart, CartItem
+from .serializers import CategorySerializer, ProductSerializer, CartItemSerializer, CartSerializer
 
 
 @api_view(['GET'])
@@ -43,6 +43,8 @@ def get_product(request, pk):
 
 
 
+
+
 ####Function-Based View (FBV) API that returns JSON response.  
 ####Included for Practice/Test purpose only
 from django.http import HttpResponse
@@ -57,3 +59,32 @@ def get_categories_json_api(request):
     json_data = JSONRenderer().render(serializer.data)
     #Sent Json data to user
     return HttpResponse(json_data, content_type='application/json')
+
+
+
+
+@api_view(['GET'])
+def get_cart(request):
+    cart, created = Cart.objects.get_or_create(user=None)
+    serializer = CartSerializer(cart)
+    return Response(serializer.data)
+
+@api_view(['POST'])
+def add_to_cart(request):
+    product_id = request.data.get('product_id')
+    product = Product.objects.get(id=product_id)
+    cart, created = Cart.objects.get_or_create(user=None)
+    item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        item.quantity+=1
+        item.save()
+    return Response({'message':'Product Added to Cart', "cart":CartSerializer(cart).data})    
+    serializer = CartSerializer(cart)
+    
+    
+
+@api_view(['POST'])
+def remove_from_cart(request):
+    item_id = request.data.get('item_id')
+    CartItem.objects.filter(id=item_id).delete()
+    return Response({'message':'Item removed from cart'})
