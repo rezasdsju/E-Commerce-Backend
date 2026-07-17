@@ -10,7 +10,7 @@ def home(request):
     
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
-from . models import Product, Category, Cart, CartItem
+from . models import Product, Category, Cart, CartItem, Order, OrderItem
 from .serializers import CategorySerializer, ProductSerializer, CartItemSerializer, CartSerializer
 
 
@@ -114,3 +114,46 @@ def remove_from_cart(request):
     item_id = request.data.get('item_id')
     CartItem.objects.filter(id=item_id).delete()
     return Response({'message':'Item removed from cart'})
+
+
+
+
+@api_view(['POST'])
+def create_order(request):
+    try:
+        data = request.data
+        name = data.get('name')
+        address = data.get('address')
+        phone = data.get('phone')
+        payment_method = data.get('payment_method', 'COD')
+        #cart = Cart.objects.first()
+        cart, created = Cart.objects.get_or_create(user=None)
+        
+        if not cart or not cart.items.exists():
+            return Response({'error':'Cart is empty'}, status=400)
+        
+        total = sum(float(item.product.price)*item.quantity for item in cart.items.all())
+        
+        order = Order.objects.create(
+            user = None,
+            total_amount = total,
+        )
+        
+        #Create order items
+        for item in cart.items.all():
+            OrderItem.objects.create(
+                order = order,
+                product = item.product,
+                quantity = item.quantity,
+                price = item.product.price,
+            )
+        #Clear the cart
+        cart.items.all().delete()
+        return Response({
+            'messege':'Order Placed Successfully',
+            'order_id':order.id
+        })
+    except Exception as e:
+        return Response({"error":str(e)}, status=500)
+        
+        

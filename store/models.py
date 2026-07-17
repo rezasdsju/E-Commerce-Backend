@@ -39,13 +39,14 @@ class UserProfile(models.Model):
     
     
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)  
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null = True, blank=True)  
     #models.ForeignKey is used to define a many-to-one relationship between database tables
     created_at = models.DateTimeField(auto_now_add=True)
     total_amount = models.DecimalField(max_digits=10, decimal_places=2)
     
     def __str__(self):
-        return f"Order {self.id} by {self.user.username}"
+        #return f"Order {self.id} by {self.user.username}"
+        return f"Order {self.id}"
     
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, related_name='items', on_delete=models.CASCADE)
@@ -67,7 +68,9 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"Cart {self.id} for {self.user.username} "
+        #return f"Cart {self.id} for {self.user.username} "
+        return f"Cart {self.id}"
+
     
     @property
     def total(self):
